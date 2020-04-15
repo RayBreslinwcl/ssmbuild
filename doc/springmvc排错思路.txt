@@ -1,0 +1,7 @@
+步骤
+1.查看bean是否注入成功
+2.Junit单元测试，看代码是否可以查看出结果
+3.问题：确认不在底层后，就一定在spring
+4.检测springmvc，整合的时候没有调用service层的bean
+    （1）applicationContext.xml没有注入bean
+    （2）web.xml中绑定的spring配置文件不是总的配置文件，所以无法注入。需要更换配置文件
