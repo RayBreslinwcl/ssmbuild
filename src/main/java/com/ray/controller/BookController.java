@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -72,5 +73,32 @@ public class BookController {
         bookService.deleteBookById(id);
         return "redirect:/book/allBook";
     }
+
+
+    /**
+     * 查询书籍
+     * @param queryBookName
+     * @param model
+     * @return
+     */
+    @RequestMapping("/queryBook")
+    public String queryBook(String queryBookName,Model model){
+
+        Books books=bookService.queryBookByName(queryBookName);
+        List<Books> list=new ArrayList<>();
+        //为了和allBook接受的书籍类型一致，所以新建一个list
+        list.add(books);
+
+        //当输入为空的时候，查询所有的书籍
+        if(books==null){
+            list=bookService.queryAllBook();
+            //同时报错
+            model.addAttribute("error","未查询到！");
+        }
+        model.addAttribute("list",list);
+        return "allBook";
+
+    }
+
 
 }
